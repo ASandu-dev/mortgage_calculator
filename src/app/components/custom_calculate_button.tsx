@@ -11,7 +11,7 @@ const CustomCalculateButton = ({ onClick, selected }: Props) => {
   return (
     <button 
       onClick={onClick} 
-      className='bg-[#d7da2f] hover:bg-[#b4b620] text-slate-700 font-semibold ml-6 px-8 py-3 my-4 rounded-3xl flex items-center gap-2'>
+      className='bg-[#d7da2f] hover:bg-[#b4b620] text-slate-700 w-fit font-semibold ml-6 px-8 py-3 my-4 rounded-3xl flex items-center gap-2'>
       <FaCalculator className="text-slate-700" />
       {selected === "Repayment" ? (
         <Typography>Calculate repayments</Typography>

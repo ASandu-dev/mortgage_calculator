@@ -17,19 +17,30 @@ export default function Home() {
   const [selected, setSelected] = useState<'Repayment' | 'Interest-only'>(
     'Repayment'
   );
-
+  const [amountError, setAmountError] = useState(false);
+  const [termError, setTermError] = useState(false);
+  const [rateError, setRateError] = useState(false);
+  
   const handleCalculate = () => {
+    const isAmountValid = amount > 0;
+    const isTermValid = years > 0;
+    const isRateValid = rate > 0;
+  
+    setAmountError(!isAmountValid);
+    setTermError(!isTermValid);
+    setRateError(!isRateValid);
+  
+    if (!isAmountValid || !isTermValid || !isRateValid) return;
+  
     const monthlyRate = rate / 100 / 12;
     const numberOfPayments = years * 12;
-
-    if (!amount || !years || !rate) return;
-
+  
     const monthlyPayment =
       (amount * monthlyRate) /
       (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
-    const termPayment = monthlyPayment * 12 * years;
-    const termInterest = (termPayment * 5.25) / 100;
-
+    const termPayment = monthlyPayment * numberOfPayments;
+    const termInterest = termPayment - amount;
+  
     setResult(parseFloat(monthlyPayment.toFixed(2)));
     setResultOT(parseFloat(termPayment.toFixed(2)));
     setInterest(parseFloat(termInterest.toFixed(2)));
@@ -37,8 +48,8 @@ export default function Home() {
 
   return (
     <Box className="bg-slate-300 w-full h-[100vh] flex justify-center items-center">
-      <Box className="flex h-[55vh]">
-        <Box className="bg-white w-[550px] h-full rounded-l-2xl pr-[100px]">
+      <Box className="flex h-[60vh]">
+        <Box className="flex flex-col justify-center bg-white w-[550px] h-full rounded-l-2xl pr-[100px]">
           {/* Header */}
           <Box className="flex justify-between items-center px-6 py-4">
             <Typography variant="h5" className="text-slate-900">
@@ -60,12 +71,14 @@ export default function Home() {
             </button>
           </Box>
           {/* End Header */}
-          <MortgageAmountField amount={amount} setAmount={setAmount} />
+          <MortgageAmountField amount={amount} setAmount={setAmount} error={amountError} />
           <MortgageTermAndAmount
             term={years}
             interestRate={rate}
             setTerm={setTerm}
             setInterestRate={setInterestRate}
+            termError={termError}
+            rateError={rateError}
           />
           <MortgageTypeSelector selected={selected} setSelected={setSelected} />
           <CustomCalculateButton
@@ -73,7 +86,7 @@ export default function Home() {
             selected={selected}
           />
         </Box>
-        <Box className="bg-slate-700 w-[450px] h-full rounded-bl-[70px] rounded-r-2xl -ml-[100px] flex flex-col">
+        <Box className="flex flex-col justify-center bg-slate-700 w-[450px] h-full rounded-bl-[70px] rounded-r-2xl -ml-[100px]">
           <Box className="flex flex-col justify-between items-start mx-5 px-6 py-4">
             <Typography variant="h6" className="font-bold text-white">
               Your results
