@@ -1,9 +1,14 @@
-const isGithubPages = process.env.GITHUB_PAGES === 'true';
+const isProd = process.env.NODE_ENV === 'production';
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+  basePath: isProd ? '/mortgage_calculator' : '',
+  assetPrefix: isProd ? '/mortgage_calculator/' : '',
   output: 'export',
-  basePath: isGithubPages ? '/mortgage_calculator' : '',
-  assetPrefix: isGithubPages ? '/mortgage_calculator/' : '',
 };
 
 export default nextConfig;
