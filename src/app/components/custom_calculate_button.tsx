@@ -1,5 +1,5 @@
 'use client'
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { FaCalculator } from 'react-icons/fa';
 
 type Props = {

@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import { Box, Typography } from "@mui/material";
-import { FaPoundSign } from "react-icons/fa";
 import MortgageTypeSelector from "./components/mortgage_type";
 import MortgageAmountField from "./components/mortgage_amount";
 import MortgageTermAndAmount from "./components/mortgage_term_amount";
