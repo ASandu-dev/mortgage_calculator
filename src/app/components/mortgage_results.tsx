@@ -13,7 +13,6 @@ const MortgageResults = ({
   result,
   resultOverTerm,
   resultInterest,
-  // mortgageType,
   selected,
 }: Props) => {
   return (
