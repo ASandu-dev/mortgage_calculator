@@ -14,7 +14,7 @@ export default function Home() {
   const [result, setResult] = useState(0);
   const [resultOverTerm, setResultOT] = useState(0);
   const [resultInterest, setInterest] = useState(0);
-  const [setMortgageType] = useState<"repayment" | "interest-only">("repayment");
+  const [mortgageType, setMortgageType] = useState<"repayment" | "interest-only">("repayment");
   const [selected, setSelected] = useState<"Repayment" | "Interest Only">(
     "Repayment"
   );
@@ -93,9 +93,7 @@ export default function Home() {
               result={result}
               resultOverTerm={resultOverTerm}
               resultInterest={resultInterest}
-              mortgageType={
-                selected === "Repayment" ? "repayment" : "interest-only"
-              }
+              mortgageType={mortgageType}
             />
           </Box>
         </Box>
