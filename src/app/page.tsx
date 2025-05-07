@@ -1,103 +1,93 @@
+"use client";
 import Image from "next/image";
+import { Box, Typography } from "@mui/material";
+import { FaPoundSign } from "react-icons/fa";
+import MortgageTypeSelector from "./components/mortgage_type";
+import MortgageAmountField from "./components/mortgage_amount";
+import MortgageTermAndAmount from "./components/mortgage_term_amount";
+import CustomCalculateButton from "./components/custom_calculate_button";
+import MortgageResults from "./components/mortgage_results";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [amount, setAmount] = useState(0);
+  const [years, setTerm] = useState(25);
+  const [rate, setInterestRate] = useState(4);
+  const [result, setResult] = useState(0);
+  const [resultOverTerm, setResultOT] = useState(0);
+  const [resultInterest, setInterest] = useState(0);
+  const [mortgageType, setMortgageType] = useState<
+    "repayment" | "interest-only"
+  >("repayment");
+  const [selected, setSelected] = useState<"Repayment" | "Interest Only">(
+    "Repayment"
+  );
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+  const handleCalculate = () => {
+    const monthlyRate = rate / 100 / 12;
+    const numberOfPayments = years * 12;
+
+    if (!amount || !years || !rate) return;
+
+    const monthlyPayment =
+      (amount * monthlyRate) /
+      (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
+    const termPayment = monthlyPayment * 12 * years;
+    const termInterest = (termPayment * 5.25)/100;
+
+    setResult(parseFloat(monthlyPayment.toFixed(2)));
+    setResultOT(parseFloat(termPayment.toFixed(2)));
+    setInterest(parseFloat(termInterest.toFixed(2)));
+  };
+
+  return (
+    <Box className="bg-slate-300 w-full h-[100vh] flex justify-center items-center">
+      <Box className="flex h-[55vh]">
+        <Box className="bg-white w-[550px] h-full rounded-l-2xl pr-[100px]">
+          {/* Header */}
+          <Box className="flex justify-between items-center px-6 py-4">
+            <Typography variant="h5" className="text-slate-900">
+              Mortgage Calcualtor
+            </Typography>
+            <a href="#" className="text-slate-500 hover:underline">
+              ClearAll
+            </a>
+          </Box>
+          {/* End Header */}
+          <MortgageAmountField setAmount={setAmount} />
+          <MortgageTermAndAmount
+            setTerm={setTerm}
+            setInterestRate={setInterestRate}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <MortgageTypeSelector selected={selected} setSelected={setSelected} />
+          <CustomCalculateButton
+            onClick={handleCalculate}
+            mortgageType={
+              selected === "Repayment" ? "repayment" : "interest-only"
+            }
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </Box>
+        <Box className="bg-slate-700 w-[450px] h-full rounded-bl-[70px] rounded-r-2xl -ml-[100px] flex flex-col">
+          <Box className="flex flex-col justify-between items-start mx-5 px-6 py-4">
+            <Typography variant="h6" className="font-bold text-white">
+              Your results
+            </Typography>
+            <Typography variant="subtitle2" className="text-slate-400">
+              Your results are shown below based on the information you
+              provided. To adjust the results, edit the form and click
+              "calculate repayments" again.
+            </Typography>
+          </Box>
+          <Box className="bg-slate-900 w-92 h-54 mt-4 mx-auto rounded-md border-t-4 border-[#d7da2f]">
+          <MortgageResults 
+        result={result}
+        resultOverTerm={resultOverTerm}
+        resultInterest={resultInterest}
+        mortgageType={selected === 'Repayment' ? 'repayment' : 'interest-only'}
+      />
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
