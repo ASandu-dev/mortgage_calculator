@@ -3,7 +3,6 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import { Typography, InputAdornment, FormControl, FormHelperText } from "@mui/material";
-import { error } from "console";
 
 type Props = {
   term: number;
