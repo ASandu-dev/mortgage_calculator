@@ -7,6 +7,7 @@ type Props = {
   resultOverTerm: number;
   resultInterest: number;
   mortgageType: "repayment" | "interest-only";
+  selected: "Repayment" | "Interest-only";
 };
 
 const MortgageResults = ({
@@ -14,6 +15,7 @@ const MortgageResults = ({
   resultOverTerm,
   resultInterest,
   mortgageType,
+  selected,
 }: Props) => {
   return (
     <Box className="p-6">
@@ -29,7 +31,7 @@ const MortgageResults = ({
       </Typography>
       <hr className="my-6 border-slate-300" />
 
-      {mortgageType === "repayment" ? (
+      {selected === "Repayment" ? (
         <>
           <Typography variant="subtitle2" className="text-slate-400">
             Total you will repay over the term
@@ -45,7 +47,7 @@ const MortgageResults = ({
       ) : (
         <>
           <Typography variant="subtitle2" className="text-slate-400">
-            Total interest you will repay
+            Total interest youll repay
           </Typography>
           <Typography variant="h6" className="text-white">
             £

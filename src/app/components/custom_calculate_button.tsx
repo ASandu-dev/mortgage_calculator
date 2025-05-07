@@ -5,15 +5,16 @@ import { FaCalculator } from 'react-icons/fa';
 type Props = {
   onClick: () => void;
   mortgageType: "repayment" | "interest-only";
+  selected: "Repayment" | "Interest-only";
 };
 
-const CustomCalculateButton = ({ onClick, mortgageType }: Props) => {
+const CustomCalculateButton = ({ onClick, selected }: Props) => {
   return (
     <button 
       onClick={onClick} 
       className='bg-[#d7da2f] hover:bg-[#b4b620] text-slate-700 font-semibold ml-6 px-8 py-3 my-4 rounded-3xl flex items-center gap-2'>
       <FaCalculator className="text-slate-700" />
-      {mortgageType === "repayment" ? (
+      {selected === "Repayment" ? (
         <Typography>Calculate repayments</Typography>
       ) : (
         <Typography>Calculate total interest</Typography>

@@ -14,7 +14,9 @@ export default function Home() {
   const [result, setResult] = useState(0);
   const [resultOverTerm, setResultOT] = useState(0);
   const [resultInterest, setInterest] = useState(0);
-  const [mortgageType, setMortgageType] = useState<"repayment" | "interest-only">("repayment");
+  const [mortgageType, setMortgageType] = useState<
+    "repayment" | "interest-only"
+  >("repayment");
   const [selected, setSelected] = useState<"Repayment" | "Interest Only">(
     "Repayment"
   );
@@ -72,9 +74,8 @@ export default function Home() {
           <MortgageTypeSelector selected={selected} setSelected={setSelected} />
           <CustomCalculateButton
             onClick={handleCalculate}
-            mortgageType={
-              selected === "Repayment" ? "repayment" : "interest-only"
-            }
+            mortgageType={mortgageType}
+            selected={selected}
           />
         </Box>
         <Box className="bg-slate-700 w-[450px] h-full rounded-bl-[70px] rounded-r-2xl -ml-[100px] flex flex-col">
@@ -84,8 +85,8 @@ export default function Home() {
             </Typography>
             <Typography variant="subtitle2" className="text-slate-400">
               Your results are shown below based on the information you
-              provided. To adjust the results, edit the form and click
-              calculate repayments again.
+              provided. To adjust the results, edit the form and click calculate
+              repayments again.
             </Typography>
           </Box>
           <Box className="bg-slate-900 w-92 h-54 mt-4 mx-auto rounded-md border-t-4 border-[#d7da2f]">
@@ -94,6 +95,7 @@ export default function Home() {
               resultOverTerm={resultOverTerm}
               resultInterest={resultInterest}
               mortgageType={mortgageType}
+              selected={selected}
             />
           </Box>
         </Box>
