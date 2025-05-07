@@ -32,7 +32,7 @@ const MortgageResults = ({
       {mortgageType === "repayment" ? (
         <>
           <Typography variant="subtitle2" className="text-slate-400">
-            Total you'll repay over the term
+            Total you will repay over the term
           </Typography>
           <Typography variant="h6" className="text-white">
             £
@@ -45,7 +45,7 @@ const MortgageResults = ({
       ) : (
         <>
           <Typography variant="subtitle2" className="text-slate-400">
-            Total interest you'll repay
+            Total interest you will repay
           </Typography>
           <Typography variant="h6" className="text-white">
             £
