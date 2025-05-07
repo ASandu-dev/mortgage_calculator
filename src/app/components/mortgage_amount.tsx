@@ -1,28 +1,26 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import React from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import { Typography, InputAdornment } from "@mui/material";
 import { FaPoundSign } from "react-icons/fa";
 
 type Props = {
+  amount: number;
   setAmount: (val: number) => void;
 };
 
-const MortgageAmountField = ({ setAmount }: Props) => {
-  const [inputValue, setInputValue] = useState("");
-
+const MortgageAmountField = ({ amount, setAmount }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/,/g, ""); // remove commas
+    const rawValue = e.target.value.replace(/,/g, "");
     const numberValue = parseFloat(rawValue);
     if (!isNaN(numberValue)) {
       setAmount(numberValue);
+    } else {
+      setAmount(0);
     }
-
-    // Format with commas
-    const formatted = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    setInputValue(formatted);
   };
+
   return (
     <Box className="w-full px-6 mb-2">
       <Typography sx={{ mb: 1 }} className="text-slate-500">
@@ -32,7 +30,7 @@ const MortgageAmountField = ({ setAmount }: Props) => {
         required
         fullWidth
         disableUnderline
-        value={inputValue}
+        value={amount ? amount.toLocaleString() : ""}
         onChange={handleChange}
         startAdornment={
           <InputAdornment position="start" className="bg-slate-300 p-3 m-0">

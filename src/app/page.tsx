@@ -11,8 +11,8 @@ import { useState } from "react";
 
 export default function Home() {
   const [amount, setAmount] = useState(0);
-  const [years, setTerm] = useState(25);
-  const [rate, setInterestRate] = useState(4);
+  const [years, setTerm] = useState(0);
+  const [rate, setInterestRate] = useState(0);
   const [result, setResult] = useState(0);
   const [resultOverTerm, setResultOT] = useState(0);
   const [resultInterest, setInterest] = useState(0);
@@ -33,7 +33,7 @@ export default function Home() {
       (amount * monthlyRate) /
       (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
     const termPayment = monthlyPayment * 12 * years;
-    const termInterest = (termPayment * 5.25)/100;
+    const termInterest = (termPayment * 5.25) / 100;
 
     setResult(parseFloat(monthlyPayment.toFixed(2)));
     setResultOT(parseFloat(termPayment.toFixed(2)));
@@ -49,13 +49,27 @@ export default function Home() {
             <Typography variant="h5" className="text-slate-900">
               Mortgage Calcualtor
             </Typography>
-            <a href="#" className="text-slate-500 hover:underline">
+            <button
+              className="text-slate-500 hover:underline"
+              onClick={() => {
+                setAmount(0);
+                setTerm(0);
+                setInterestRate(0);
+                setResult(0);
+                setResultOT(0);
+                setInterest(0);
+                setMortgageType("repayment");
+                setSelected("Repayment");
+              }}
+            >
               ClearAll
-            </a>
+            </button>
           </Box>
           {/* End Header */}
-          <MortgageAmountField setAmount={setAmount} />
+          <MortgageAmountField amount={amount} setAmount={setAmount} />
           <MortgageTermAndAmount
+            term={years}
+            interestRate={rate}
             setTerm={setTerm}
             setInterestRate={setInterestRate}
           />
@@ -79,12 +93,14 @@ export default function Home() {
             </Typography>
           </Box>
           <Box className="bg-slate-900 w-92 h-54 mt-4 mx-auto rounded-md border-t-4 border-[#d7da2f]">
-          <MortgageResults 
-        result={result}
-        resultOverTerm={resultOverTerm}
-        resultInterest={resultInterest}
-        mortgageType={selected === 'Repayment' ? 'repayment' : 'interest-only'}
-      />
+            <MortgageResults
+              result={result}
+              resultOverTerm={resultOverTerm}
+              resultInterest={resultInterest}
+              mortgageType={
+                selected === "Repayment" ? "repayment" : "interest-only"
+              }
+            />
           </Box>
         </Box>
       </Box>

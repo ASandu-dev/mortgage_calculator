@@ -5,11 +5,13 @@ import Input from "@mui/material/Input";
 import { Typography, InputAdornment } from "@mui/material";
 
 type Props = {
+  term: number;
+  interestRate: number;
   setTerm: (val: number) => void;
   setInterestRate: (val: number) => void;
 };
 
-const MortgageTermAndAmount = ({ setTerm, setInterestRate }: Props) => {
+const MortgageTermAndAmount = ({ term, interestRate, setTerm, setInterestRate }: Props) => {
   return (
     <Box className="flex pt-2">
       <Box className="w-full pl-6 flex-1/2">
@@ -20,6 +22,7 @@ const MortgageTermAndAmount = ({ setTerm, setInterestRate }: Props) => {
           required
           fullWidth
           disableUnderline
+          value={term || ""}
           endAdornment={
             <InputAdornment position="end" className="bg-slate-300 p-3 m-0">
               <Typography className="text-slate-500"> years </Typography>
@@ -38,6 +41,7 @@ const MortgageTermAndAmount = ({ setTerm, setInterestRate }: Props) => {
           required
           fullWidth
           disableUnderline
+          value={interestRate || ""}
           endAdornment={
             <InputAdornment position="end" className="bg-slate-300 p-3 m-0">
               <Typography className="text-slate-500"> % </Typography>
