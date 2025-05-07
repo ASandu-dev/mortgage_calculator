@@ -14,11 +14,8 @@ export default function Home() {
   const [result, setResult] = useState(0);
   const [resultOverTerm, setResultOT] = useState(0);
   const [resultInterest, setInterest] = useState(0);
-  const [mortgageType, setMortgageType] = useState<
-    "repayment" | "interest-only"
-  >("repayment");
-  const [selected, setSelected] = useState<"Repayment" | "Interest Only">(
-    "Repayment"
+  const [selected, setSelected] = useState<'Repayment' | 'Interest-only'>(
+    'Repayment'
   );
 
   const handleCalculate = () => {
@@ -74,7 +71,7 @@ export default function Home() {
           <MortgageTypeSelector selected={selected} setSelected={setSelected} />
           <CustomCalculateButton
             onClick={handleCalculate}
-            mortgageType={mortgageType}
+            // mortgageType={mortgageType}
             selected={selected}
           />
         </Box>
@@ -94,7 +91,6 @@ export default function Home() {
               result={result}
               resultOverTerm={resultOverTerm}
               resultInterest={resultInterest}
-              mortgageType={mortgageType}
               selected={selected}
             />
           </Box>

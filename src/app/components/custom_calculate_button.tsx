@@ -4,8 +4,7 @@ import { FaCalculator } from 'react-icons/fa';
 
 type Props = {
   onClick: () => void;
-  mortgageType: "repayment" | "interest-only";
-  selected: "Repayment" | "Interest-only";
+  selected: 'Repayment' | 'Interest-only';
 };
 
 const CustomCalculateButton = ({ onClick, selected }: Props) => {

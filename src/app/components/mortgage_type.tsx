@@ -1,7 +1,7 @@
 'use client';
 import { Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 
-type MortgageOption = 'Repayment' | 'Interest Only';
+type MortgageOption = 'Repayment' | 'Interest-only';
 
 type Props = {
   selected: MortgageOption;
@@ -32,7 +32,7 @@ export default function MortgageTypeSelector({ selected, setSelected }: Props) {
               <FormControlLabel
                 value={option}
                 control={<Radio />}
-                label={option.charAt(0).toUpperCase() + option.slice(1)}
+                label={option}
                 className="w-full"
               />
             </Box>

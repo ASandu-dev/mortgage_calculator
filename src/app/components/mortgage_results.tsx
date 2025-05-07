@@ -6,15 +6,14 @@ type Props = {
   result: number;
   resultOverTerm: number;
   resultInterest: number;
-  mortgageType: "repayment" | "interest-only";
-  selected: "Repayment" | "Interest-only";
+  selected: 'Repayment' | 'Interest-only';
 };
 
 const MortgageResults = ({
   result,
   resultOverTerm,
   resultInterest,
-  mortgageType,
+  // mortgageType,
   selected,
 }: Props) => {
   return (
