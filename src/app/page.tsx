@@ -53,7 +53,6 @@ export default function Home() {
                 setResult(0);
                 setResultOT(0);
                 setInterest(0);
-                setMortgageType("repayment");
                 setSelected("Repayment");
               }}
             >
@@ -71,7 +70,6 @@ export default function Home() {
           <MortgageTypeSelector selected={selected} setSelected={setSelected} />
           <CustomCalculateButton
             onClick={handleCalculate}
-            // mortgageType={mortgageType}
             selected={selected}
           />
         </Box>
